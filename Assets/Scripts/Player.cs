@@ -21,12 +21,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] float controlRollFactor = -20f;
     float xThrow, yThrow;
+    bool isControlEnabled= true;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {}
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -35,6 +35,12 @@ public class Player : MonoBehaviour
         ProcessRotation();
 
     }
+    void OnPlayerDead()
+    {
+        isControlEnabled = false;
+
+    }
+
     private void ProcessTranslation()
     {
         //float xThrow = CrossPlatformInputManager.GetAxis("Horizontal");
