@@ -7,7 +7,7 @@ public class ScoreBorad : MonoBehaviour
 {
     public static ScoreBorad instance;
     
-    [SerializeField] int scorePerHit = 12;
+    
     private void Awake()
     {
         instance = this;
@@ -27,9 +27,9 @@ public class ScoreBorad : MonoBehaviour
         
     }
 
-    public void ScoreHit()
+    public void ScoreHit(int scoreIncrease)
     {
-        score +=scorePerHit;
+        score +=scoreIncrease;
         scoreText.text = score.ToString();
     }
 }

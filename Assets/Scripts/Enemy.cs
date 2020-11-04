@@ -6,7 +6,9 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject enemyDeathFX;
     [SerializeField] Transform parent;
-   
+    [SerializeField] int scorePerHit = 12;
+    [SerializeField] int hits = 10;
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void addAnotherCollision()
@@ -25,10 +27,24 @@ public class Enemy : MonoBehaviour
         Collider boxCollider = gameObject.GetComponent<BoxCollider>();
         boxCollider.isTrigger = false;
     }
-    private void OnParticleCollision(GameObject other) 
+    private void OnParticleCollision(GameObject other)
     {
-        ScoreBorad.instance.ScoreHit();
-        GameObject fx = Instantiate(enemyDeathFX,gameObject.transform.position,Quaternion.identity);
+        ProcessHit();
+        if (hits < 1)
+        {
+            KillEnemies();
+        }
+    }
+
+    private void ProcessHit()
+    {
+        ScoreBorad.instance.ScoreHit(scorePerHit);
+        hits = hits - 1;
+    }
+
+    private void KillEnemies()
+    {
+        GameObject fx = Instantiate(enemyDeathFX, gameObject.transform.position, Quaternion.identity);
         fx.transform.parent = parent;
         Destroy(gameObject);
     }
